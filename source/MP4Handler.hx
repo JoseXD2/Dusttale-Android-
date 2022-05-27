@@ -62,33 +62,33 @@ class MP4Handler
 		#else
 		finishCallback = voidCallback;
 
-		vlcBitmap = new VlcBitmap();
-		vlcBitmap.set_height(FlxG.stage.stageHeight);
-		vlcBitmap.set_width(FlxG.stage.stageHeight * (16 / 9));
+	//	vlcBitmap = new VlcBitmap();
+	//	vlcBitmap.set_height(FlxG.stage.stageHeight);
+	//	vlcBitmap.set_width(FlxG.stage.stageHeight * (16 / 9));
 
 		trace("Setting width to " + FlxG.stage.stageHeight * (16 / 9));
 		trace("Setting height to " + FlxG.stage.stageHeight);
 
-		vlcBitmap.onVideoReady = onVLCVideoReady;
-		vlcBitmap.onComplete = onVLCComplete;
-		vlcBitmap.onError = onVLCError;
+	//	vlcBitmap.onVideoReady = onVLCVideoReady;
+	//	vlcBitmap.onComplete = onVLCComplete;
+	//	vlcBitmap.onError = onVLCError;
 
 		FlxG.stage.addEventListener(Event.ENTER_FRAME, update);
 
-		if (repeat)
-			vlcBitmap.repeat = -1;
-		else
-			vlcBitmap.repeat = 0;
+	//	if (repeat)
+	//		vlcBitmap.repeat = -1;
+	//	else
+	//		vlcBitmap.repeat = 0;
 
-		vlcBitmap.inWindow = isWindow;
-		vlcBitmap.fullscreen = isFullscreen;
+	//	vlcBitmap.inWindow = isWindow;
+	//	vlcBitmap.fullscreen = isFullscreen;
 
 		FlxG.addChildBelowMouse(vlcBitmap);
-		vlcBitmap.play(checkFile(path));
+	//	vlcBitmap.play(checkFile(path));
 		if (outputTo != null)
 		{
 			// lol this is bad kek
-			vlcBitmap.alpha = 0;
+	//		vlcBitmap.alpha = 0;
 
 			sprite = outputTo;
 		}
@@ -120,14 +120,14 @@ class MP4Handler
 
 	public function onVLCComplete()
 	{
-		vlcBitmap.stop();
+	//	vlcBitmap.stop();
 
 		// Clean player, just in case!
-		vlcBitmap.dispose();
+	//	vlcBitmap.dispose();
 
-		if (FlxG.game.contains(vlcBitmap))
+	//	if (FlxG.game.contains(vlcBitmap))
 		{
-			FlxG.game.removeChild(vlcBitmap);
+	//		FlxG.game.removeChild(vlcBitmap);
 		}
 
 		trace("Big, Big Chungus, Big Chungus!");
@@ -148,7 +148,7 @@ class MP4Handler
 
 	function update(e:Event)
 	{
-		vlcBitmap.volume = FlxG.sound.volume; // shitty volume fix
+	//	vlcBitmap.volume = FlxG.sound.volume; // shitty volume fix
 	}
 	#end
 
