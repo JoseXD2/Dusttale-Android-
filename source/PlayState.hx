@@ -1460,7 +1460,9 @@ class PlayState extends MusicBeatState
 
 		if (loadRep)
 			replayTxt.cameras = [camHUD];
-
+                #if android
+	        addAndroidControls();
+	#end
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
 		// UI_camera.zoom = 1;
@@ -1516,9 +1518,9 @@ class PlayState extends MusicBeatState
 
 	function playCutscene(videoPlaying:String,time:Float,dialogueBox:DialogueBox):Void
 	{
-		var video:MP4Handler = new MP4Handler();
-   		video.playMP4(Paths.video(videoPlaying), null); 
-		new FlxTimer().start(time, function(tmr:FlxTimer)
+		//var video:MP4Handler = new MP4Handler();
+   		//video.playMP4(Paths.video(videoPlaying), null); 
+		//new FlxTimer().start(time, function(tmr:FlxTimer)
 		{
 			if (dialogueBox != null)
 			{
@@ -1532,9 +1534,9 @@ class PlayState extends MusicBeatState
 
 	function playCutscene2(videoPlaying:String,time:Float):Void
 	{
-		var video:MP4Handler = new MP4Handler();
-		video.playMP4(Paths.video(videoPlaying), null); 
-		new FlxTimer().start(time, function(tmr:FlxTimer)
+		//var video:MP4Handler = new MP4Handler();
+		//video.playMP4(Paths.video(videoPlaying), null); 
+		//new FlxTimer().start(time, function(tmr:FlxTimer)
 		{
 			LoadingState.loadAndSwitchState(new PlayState());
 		});
@@ -1561,7 +1563,9 @@ class PlayState extends MusicBeatState
 	#end
 
 	function startCountdown():Void
-	{
+	{       #if android
+	        androidc.visible = true;
+	        #end
 		inCutscene = false;
 
 		generateStaticArrows(0);
@@ -3199,14 +3203,14 @@ class PlayState extends MusicBeatState
 		if (isStoryMode)
 			campaignMisses = misses;
 
-		if (!loadRep)
+		/*if (!loadRep)
 			rep.SaveReplay(saveNotes, saveJudge, replayAna);
 		else
 		{
 			PlayStateChangeables.botPlay = false;
 			PlayStateChangeables.scrollSpeed = 1;
 			PlayStateChangeables.useDownscroll = false;
-		}
+		}*/
 
 		if (FlxG.save.data.fpsCap > 290)
 			(cast (Lib.current.getChildAt(0), Main)).setFPSCap(290);
@@ -3329,9 +3333,10 @@ class PlayState extends MusicBeatState
 						StoryMenuState.weekUnlocked[Std.int(Math.min(storyWeek + 1, StoryMenuState.weekUnlocked.length - 1))] = true;
 	
 						if (SONG.validScore)
-						{
+						{       #if newgrounds
 							NGio.unlockMedal(60961);
 							Highscore.saveWeekScore(storyWeek, campaignScore, storyDifficulty);
+						        #end
 						}
 	
 						FlxG.save.data.weekUnlocked = StoryMenuState.weekUnlocked;
