@@ -65,6 +65,7 @@ import lime.utils.Assets;
 import openfl.display.BlendMode;
 import openfl.display.StageQuality;
 import openfl.filters.ShaderFilter;
+import vlc.VideoHandler;
 
 #if windows
 import Discord.DiscordClient;
@@ -3412,10 +3413,40 @@ class PlayState extends MusicBeatState
 			}
 		}
 	}
+				
+        switch (curSong.toLowerCase())
+{
+	case 'the-murderer':
+		playCutscene('themurderer2.mp4');
+	
+	default:
+		startCountdown();
+}
+        function playCutscene(name:String, ?atend:Bool)
+        {
+	inCutscene = true;
 
-
+	var video:VideoHandler = new VideoHandler();
+	FlxG.sound.music.stop();
+	video.finishCallback = function()
+	{
+		if (atend == true)
+		{
+			if (storyPlaylist.length <= 0)
+				FlxG.switchState(new StoryMenuState());
+			else
+			{
+				SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
+				FlxG.switchState(new PlayState());
+			}
+		}
+		else
+			startCountdown();
+	}
+	video.playVideo(Paths.video(name));
+}
 	var endingSong:Bool = false;
-
+        
 	var hits:Array<Float> = [];
 	var offsetTest:Float = 0;
 
